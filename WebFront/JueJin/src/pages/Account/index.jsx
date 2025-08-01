@@ -1,7 +1,9 @@
+import styles from './styles.module.css'
+
 const Account = () => {
   return (
     <div>
-      <h1>Account</h1>
+      <a href="/home" className={styles.header}>Home</a>
     </div>
   )
 }
