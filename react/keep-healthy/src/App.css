@@ -16,7 +16,7 @@
 }
 .fixed-loading {
   position: fixed;
-  top: 50px;
+  top: 65%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;

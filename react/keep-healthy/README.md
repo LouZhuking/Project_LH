@@ -111,3 +111,48 @@
 ## git 提交规范
 
 - 项目初始化
+
+## 功能模块
+
+- UI 组件库
+
+  - react-vant 第三方组件库 70%的组件已经有了，不用写
+  - 选择一个适合业务的 UI 组件库 或者公司内部的组件库
+
+- 配置路由及懒加载
+
+  - 懒加载
+  - 路由守卫
+  - Layout 组件 import React from 'react';
+    - 嵌套路由 Outlet 分组路由配置
+    - 网页有几个模版 Layout
+      - Route 不加 path 对应的路由自动选择
+      - tabbar 模版
+      - blank 模版
+  - tabbar
+    - react-vant + @react-vant/icons
+    - value + onChange 响应式
+    - 直接点击链接分享 active 的设置
+
+- chatbot 模块
+
+  - llm 模块 chat 封装
+  - 迭代 chat , 支持任意模型
+
+- 项目迭代
+
+  - 功能由浅入深
+  - chatbot deepseek 简单 chat
+  - deepseek-r1 推理模型
+  - 流式输出
+  - 上下文 LRU
+  - coze 工作流接口调用
+
+- 前端智能
+
+  - chat 函数
+  - 对各家模型比较感兴趣， 升级为 kimiChat，doubaoChat...
+    - 性能、能力、性价比
+    - 随意切换大模型，通过参数抽象
+  - 文生图
+    - 优化 prompt 设计，
