@@ -1,9 +1,13 @@
+import styles from './loading.module.css'
+import {
+  memo
+} from 'react'
+
 const Loading = () => {
   return (
-    <div>
-      加载中...
+    <div className={styles.boxLoading}>
     </div>
   )
 }
 
-export default Loading
+export default memo(Loading)

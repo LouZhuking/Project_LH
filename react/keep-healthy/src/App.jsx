@@ -4,8 +4,8 @@ import {
   lazy
 } from 'react'
 import {
-  Route,
   Routes,
+  Route,
   Navigate
 } from 'react-router-dom'
 
@@ -38,9 +38,7 @@ function App() {
             {/* 登录鉴权组件 */}
             {/* 以及引入coze工作流组件 */}
           </Route>
-        </Routes>
-        {/* 空的Layout */}
-        <Routes>
+          {/* 空的Layout */}
           <Route element={<BlankLayout />}>
             <Route path='/search' element={<Search />} />
             {/* 点击跳转买东西详情页面，轮播图 */}
