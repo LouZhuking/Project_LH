@@ -1,0 +1,26 @@
+.card{
+  width: 100%;
+  margin: 1%;
+  /* 占位 */
+  background-color: #eee; 
+  overflow: hidden;
+  border-radius: 16px;
+  /* 防止布局变化 */
+  position: relative;
+  flex-shrink: 0;
+  /* 确保容器稳定 */
+  will-change: auto;
+}
+.img{
+  width: 100%;
+  height: 100%;
+  /* 会保持元素的宽高比 剪裁 */
+  object-fit: cover;
+  display: block;
+  /* 防止图片加载时的闪烁 */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  /* 强制硬件加速 */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

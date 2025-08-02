@@ -139,6 +139,34 @@
   - llm 模块 chat 封装
   - 迭代 chat , 支持任意模型
 
+- 瀑布流
+    - 小红书等主流App的内容浏览用户体验产品
+        两列、图片高度不一致、落差感
+        滚动加载更多，图片懒加载
+    - 接口
+        /api/image?page=${n} 支持翻页
+         唯一 id page + index
+      随机图片, 高度随机
+    - images 怎么放到两列中？ MVVM
+      数据驱动界面 (2 列) 奇偶
+    - 加载更多 位于盒子底部的元素 通过使用 IntersectionObserver
+      观察它是否出现在视窗， 性能更好， 使用了观察者模式
+      组件卸载时，直接使用 disconnect 释放资源， 防止内存泄漏
+      - key id 下拉刷新
+      - 使用 IntersectionObserver 再次图片懒加载 data-src
+
+
+
+- es6 特性使用
+    tabbar 的高度
+    - arr.findIndex
+    - str.startWith
+    - promise
+    瀑布流随机数据生成
+    - Array.from({length:pageSize}, (_,i) => ({
+    }))
+
+
 - 项目迭代
 
   - 功能由浅入深

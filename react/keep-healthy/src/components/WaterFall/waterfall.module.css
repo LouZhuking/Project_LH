@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  flex-wrap: nowrap;
+  position: relative;
+  /* 防止宽度计算抖动 */
+  width: 100%;
+  box-sizing: border-box;
+}
+.column {
+  width: 48%;
+  margin: 0 1%;
+  display: flex;
+  flex-direction: column;
+  /* 防止图片加载时的宽度抖动 */
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+.loader{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  text-align: center;
+  color: #888;
+  font-size: 28px;
+  padding: 20px;
+}

@@ -15,6 +15,7 @@ import {
   ChatO,
   UserO
 } from '@react-vant/icons'
+import ReactMarkdown from 'react-markdown'
 
 const Chat = () => {
   useTitle('AI教练')
@@ -165,7 +166,7 @@ const Chat = () => {
                   <ChatO /> :
                   <UserO />
               }
-              {msg.content}
+              <ReactMarkdown>{msg.content}</ReactMarkdown>
             </div>
           ))
         }

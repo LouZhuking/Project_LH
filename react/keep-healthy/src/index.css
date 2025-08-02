@@ -34,6 +34,45 @@ body {
   background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* 隐藏滚动条但保持滚动功能 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* 防止页面宽度变化 */
+  width: 100vw;
+  max-width: 100%;
+  /* 隐藏滚动条 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* 隐藏 Webkit 滚动条 */
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* 设置html滚动行为 */
+html {
+  scroll-behavior: smooth;
+  /* 隐藏html级别的滚动条 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* 隐藏 html 的 Webkit 滚动条 */
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* 全局隐藏所有滚动条 */
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
 /* 清除链接默认样式 */
