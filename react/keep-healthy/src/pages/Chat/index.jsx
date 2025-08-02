@@ -21,9 +21,12 @@ const Chat = () => {
 
   const [text, setText] = useState("")
   const [isSending, setIsSending] = useState(false)
+  const [showQuickActions, setShowQuickActions] = useState(true) // 控制快捷操作栏显示
+  const [showMainContent, setShowMainContent] = useState(true) // 控制主内容区域显示
   // 数据驱动界面
   // 静态界面
   const [messages, setMessages] = useState([
+    // 会出现情况出现将下标导航挤掉
     {
       id: 2,
       content: "hello~~",
@@ -33,15 +36,41 @@ const Chat = () => {
       id: 1,
       content: "hello, I am your assistant~~",
       role: "assistant",
-    }
+    },
+
   ])
 
-  const handleChat = () => {
+  const handleChat = async () => {
     // 当输入为空的时候不输出
     if (text.trim() === "") return
     // 1. 不能让用户重复点击按钮
     setIsSending(true)
-
+    setText("")
+    // 隐藏快捷操作栏（用户首次提交后）
+    setShowQuickActions(false)
+    setShowMainContent(false)
+    // 2. 用户发送的可以立马上去
+    // 会产生闭包陷阱
+    setMessages((prev) => {
+      return [
+        ...prev,
+        {
+          role: 'user',
+          content: text,
+        }
+      ]
+    })
+    const newMessage = await chat([{
+      role: 'user',
+      content: text
+    }])
+    setMessages((prev) => {
+      return [
+        ...prev,
+        newMessage.data
+      ]
+    })
+    setIsSending(false)
   }
 
   useEffect(() => {
@@ -49,13 +78,13 @@ const Chat = () => {
       const res = await chat([
         {
           role: 'user',
-          content: '你好'
+          content: ''
         }
       ]);
-      console.log(res);
+      // console.log(res);
     }
     fetchChat()
-  })
+  }, [])
 
 
 
@@ -65,7 +94,10 @@ const Chat = () => {
     <div className={styles.chatContainer}>
       {/* 顶部导航栏 */}
       <div className={styles.topHeader}>
-        <div className={styles.leftIcon}>
+        <div className={styles.leftIcon} onClick={() => {
+          setShowMainContent(true)
+          setShowQuickActions(true)
+        }}>
           <Icon type="icon-a-134_nianbao" size={24} />
         </div>
         <div className={styles.centerTitle}>
@@ -78,7 +110,7 @@ const Chat = () => {
       </div>
 
       {/* 主要内容区域 */}
-      <div className={styles.mainContent}>
+      <div className={`${styles.mainContent} ${!showMainContent ? styles.hidden : ''}`}>
         {/* AI问候卡片 */}
         <div className={styles.greetingCard}>
           <div className={styles.quoteIcon}>💬</div>
@@ -120,7 +152,7 @@ const Chat = () => {
       </div>
 
       {/* 对话区域 */}
-      <div className={`flex-1 ${styles.ChatArea}`}>
+      <div className={styles.ChatArea}>
         {
           messages.map((msg, index) => (
             <div key={index} className={
@@ -140,7 +172,7 @@ const Chat = () => {
       </div>
 
       {/* 底部快捷操作栏 */}
-      <div className={styles.quickActions}>
+      <div className={`${styles.quickActions} ${!showQuickActions ? styles.hidden : ''}`}>
         <div className={styles.actionItem}>
           <span className={styles.actionIcon}>📝</span>
           <span className={styles.actionText}>生成计划</span>

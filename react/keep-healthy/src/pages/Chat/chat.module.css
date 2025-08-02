@@ -1,12 +1,12 @@
 /* 整体容器 */
 .chatContainer {
-  height: 100%;
+  height: 100vh; /* 占满整个视窗 */
   display: flex;
   flex-direction: column;
   background-color: #f5f5f7; /* 浅灰色整体背景 */
-  min-height: calc(100vh - 50px); /* 减去底部导航栏高度 */
   font-family: "Arial", sans-serif; /* 通用字体 */
-  padding-bottom: 50px;
+  box-sizing: border-box;
+  padding-bottom: 100px; /* 为底部标签栏留出空间 */
 }
 
 /* 顶部导航栏 */
@@ -58,7 +58,7 @@
 
 /* 主要内容区域 */
 .mainContent {
-  flex: 1;
+  flex-shrink: 0; /* 防止被压缩 */
   padding: 20px 16px;
   overflow-y: auto;
   background-color: #e3f2fd; /* 浅蓝色背景 */
@@ -153,6 +153,25 @@
   background-color: #f5f5f5;
   overflow-y: auto;
   padding: 12px;
+  flex: 1;
+  min-height: 0; /* 重要：允许flex项目缩小到内容尺寸以下 */
+  order: 1; /* 在顶部和主内容之后 */
+}
+.messageLeft,
+.messageRight {
+  max-width: 70%;
+  padding: 8px 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.messageLeft {
+  background-color: #fff;
+}
+.messageRight {
+  background-color: #4fc08d;
+  color: white;
+  margin-left: 30%;
 }
 
 /* 底部快捷操作栏 */
@@ -163,6 +182,17 @@
   padding: 12px 16px;
   border-top: 1px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
+  flex-shrink: 0; /* 防止被压缩 */
+  order: 2; /* 在输入框上方 */
+  transition: all 0.3s ease;
+}
+
+/* 隐藏快捷操作栏 */
+.quickActions.hidden {
+  display: none;
+}
+.mainContent.hidden {
+  display: none;
 }
 
 .actionItem {
@@ -196,6 +226,9 @@
   background-color: #f1f8e9; /* 浅绿色背景 */
   padding: 16px;
   flex-shrink: 0;
+  order: 3; /* 确保在最底部 */
+  position: relative;
+  z-index: 10;
 }
 
 .inputContainer {
