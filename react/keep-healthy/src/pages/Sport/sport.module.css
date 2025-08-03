@@ -1,0 +1,622 @@
+/* 主容器 */
+.sportContainer {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 0 16px 80px 16px; /* 底部留出导航栏空间 */
+
+}
+
+/* 顶部导航栏 */
+.topNavBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 0 0 16px 16px;
+  margin: 0 -16px 0 -16px;
+  padding-left: 32px;
+  padding-right: 32px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.lightningIcon {
+  font-size: 24px;
+  color: #ffc107;
+  filter: drop-shadow(0 2px 4px rgba(255, 193, 7, 0.3));
+}
+
+.scoreText {
+  font-size: 24px;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.centerSection {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upgradeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 50%, #6610f2 100%);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(111, 66, 193, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.upgradeButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(111, 66, 193, 0.4);
+}
+
+.upgradeIcon {
+  font-size: 16px;
+}
+
+.upgradeText {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.userIcon,
+.settingsIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 18px;
+}
+
+.userIcon {
+  background: #495057;
+  color: white;
+}
+
+.userIcon:hover {
+  background: #343a40;
+  transform: scale(1.05);
+}
+
+.settingsIcon {
+  background: #343a40;
+  color: white;
+}
+
+.settingsIcon:hover {
+  background: #495057;
+  transform: scale(1.05);
+}
+
+/* 顶部运动模式选择栏 */
+.sportModesContainer {
+  width: 100vw;
+  height: 200px;
+  display: flex;
+  gap: 16px;
+  padding: 20px 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.98) 100%);
+  border-radius: 0;
+  margin: 0 -16px 24px -16px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: none;
+  border-right: none;
+  position: relative;
+  align-items: center;
+  justify-content: flex-start;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* 隐藏滚动条 */
+.sportModesContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* 添加容器装饰背景 */
+.sportModesContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(32, 201, 151, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(23, 162, 184, 0.05) 0%, transparent 50%);
+  border-radius: 0;
+  z-index: 0;
+}
+
+.sportModesContainer > * {
+  position: relative;
+  z-index: 1;
+}
+
+.allModes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  border-radius: 20px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 12px rgba(108, 117, 125, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.allModes::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.allModes:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 8px 24px rgba(108, 117, 125, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.allModes:hover::before {
+  left: 100%;
+}
+
+.allModes:active {
+  transform: translateY(0) scale(1.02);
+}
+
+.gridIcon {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.modeItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(233, 236, 239, 0.5);
+  padding: 16px 24px;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  margin-top: 0;
+  color: #333333;
+  gap: 10px;
+}
+
+.modeItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modeItem:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: rgba(40, 167, 69, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.modeItem:hover::before {
+  opacity: 1;
+}
+
+.modeItem:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.activeModeItem {
+  background: linear-gradient(135deg, #24e050 0%, #20c997 100%);
+  color: white;
+  border-color: #28a745;
+  box-shadow: 
+    0 6px 20px rgba(40, 167, 69, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  font-size: 24px;
+}
+
+.activeModeItem::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+  opacity: 1;
+}
+
+.activeModeItem:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 
+    0 10px 28px rgba(40, 167, 69, 0.5),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #1de448 0%, #0fdb72 100%);
+}
+
+.modeIcon {
+  font-size: 32px;
+  margin-bottom: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.activeModeItem .modeIcon {
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+.modeItem:hover .modeIcon {
+  transform: scale(1.1);
+}
+
+.modeName {
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.activeModeItem .modeName {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* 主要内容区域 */
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  /* gap: 20px; */
+}
+
+/* 目标距离卡片 */
+.targetCard {
+  background: linear-gradient(135deg, #20c997 0%, #17a2b8 50%, #28a745 100%);
+  border-radius: 20px;
+  padding: 60px 20px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(32, 201, 151, 0.3);
+  min-height: 650px;
+}
+
+/* 添加背景图案 */
+.targetCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 2px, transparent 2px),
+    linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.05) 50%, transparent 55%);
+  background-size: 30px 30px, 40px 40px, 20px 20px;
+  z-index: 0;
+}
+
+.targetCard > * {
+  position: relative;
+  z-index: 1;
+}
+
+.targetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.navButton {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.navButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.targetTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.distanceDisplay {
+  font-size: 115px;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 120px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.unitText {
+  text-align: center;
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+  text-decoration: underline;
+}
+
+/* GPS状态和心率显示 */
+.statusIcons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.heartRate {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.heartIcon {
+  color: #ff6b6b;
+  font-size: 16px;
+}
+
+.gpsStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.gpsIndicator {
+  width: 12px;
+  height: 12px;
+  background: #28a745;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* 运动类型选择 */
+.runTypesContainer {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.runTypeItem {
+  flex: 1;
+  text-align: center;
+  padding: 12px 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  color: #6c757d;
+  background: transparent;
+}
+
+.activeRunType {
+  background: #343a40;
+  color: white;
+  box-shadow: 0 2px 8px rgba(52, 58, 64, 0.3);
+}
+
+/* 底部操作区域 */
+.bottomActions {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  /* justify-content: center; */
+  margin-top: 30px;
+  position: relative;
+}
+
+.goButton {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  font-size: 60px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+  letter-spacing: 3px;
+  margin-top: 150px;
+}
+
+.goButton:hover {
+  transform: translateX(-50%) translateY(-4px) scale(1.05);
+  box-shadow: 
+    0 16px 48px rgba(40, 167, 69, 0.6),
+    0 8px 24px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #218838 0%, #1e9d5c 100%);
+}
+
+.goButton:active {
+  transform: translateX(-50%) translateY(-1px) scale(1.02);
+  box-shadow: 
+    0 8px 24px rgba(40, 167, 69, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.equipmentButton {
+  position: absolute;
+  right: 20px;
+  top: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #e9ecef;
+  min-width: 120px;
+}
+
+.equipmentButton:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+  transform: translateY(-1px);
+}
+
+.equipmentIcon {
+  font-size: 48px;
+  color: #495057;
+}
+
+.equipmentButton span:last-child {
+  font-size: 20px;
+  color: #495057;
+  font-weight: 500;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .sportContainer {
+    padding: 0 12px 80px 12px;
+  }
+  
+  .distanceDisplay {
+    font-size: 60px;
+  }
+  
+  .goButton {
+    width: 130px;
+    height: 130px;
+    font-size: 48px;
+    letter-spacing: 2px;
+  }
+  
+  .sportModesContainer {
+    gap: 10px;
+    margin: 0 -12px 20px -12px;
+    padding: 16px 12px;
+    height: 100px;
+  }
+  
+  .modeItem {
+    min-width: 180px;
+    width: 200px;
+    height: 60px;
+    padding: 12px 16px;
+    gap: 12px;
+    flex-direction: row;
+  }
+  
+  .modeIcon {
+    font-size: 30px;
+    margin-bottom: 0;
+  }
+  
+  .modeName {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+  }
+}
