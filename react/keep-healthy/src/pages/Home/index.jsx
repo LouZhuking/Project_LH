@@ -8,6 +8,9 @@ import {
   SettingO
 } from '@react-vant/icons'
 import {
+  useNavigate
+} from 'react-router-dom'
+import {
   useImageStore
 } from '@/store/useImageStore'
 import useTitle from '@/hooks/useTitle'
@@ -16,6 +19,7 @@ import WaterFall from '@/components/WaterFall'
 
 const Home = () => {
   useTitle('首页')
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState(1) // 默认选中"推荐"
   const {
     images,
@@ -39,7 +43,7 @@ const Home = () => {
       {/* 顶部导航栏 */}
       <div className={styles.topHeader}>
         <div className={styles.searchContainer}>
-          <div className={styles.searchBox}>
+          <div className={styles.searchBox} onClick={() => navigate('/search')}>
             <Search className={styles.searchIcon} />
             <input
               type="text"
@@ -50,8 +54,8 @@ const Home = () => {
           <div className={styles.headerIcons}>
             <UserO className={styles.headerIcon} />
             <div className={styles.messageContainer}>
-              <SettingO className={styles.headerIcon} />
-              <span className={styles.badge}>26</span>
+              <SettingO className={styles.headerIcon_setting} />
+              <span className={styles.badge}>99+</span>
             </div>
           </div>
         </div>

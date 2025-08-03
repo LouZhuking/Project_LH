@@ -1,3 +1,4 @@
+import React from 'react'
 import SearchBox from '@/components/SearchBox'
 import useSearchStore from '@/store/useSearchStore'
 import styles from './search.module.css'
@@ -5,25 +6,13 @@ import {
   useState,
   useEffect
 } from 'react'
-
-const HotListItems = (props) => {
-  console.log('-----', props);
-  const { hotList } = props
-  return (
-    <div className={styles.hot}>
-      <h1>热门推荐</h1>
-      {
-        hotList.map((item) => (
-          <div key={item.id} className={styles.item}>
-            {item.title}
-          </div>
-        ))
-      }
-    </div>
-  )
-}
-
-
+import {
+  Swiper,
+  Image
+} from 'react-vant'
+import HotListItems from '@/components/HotListItems'
+import Icon from '@/Icon'
+import { images } from '@/images/Search'
 
 const Search = () => {
   const [query, setQuery] = useState('')
@@ -61,7 +50,32 @@ const Search = () => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <SearchBox handleQuery={handleQuery} />
+        {/* 搜索记录栏 */}
+        <div className={styles.searchRecord}>
+          <div className={styles.searchRecordLeft}>
+            <span>搜索记录</span>
+          </div>
+          <div className={styles.searchRecordRight}>
+            {/* 清楚按钮 */}
+            <Icon type="icon-icon" size={15} />
+            <span>清除</span>
+          </div>
+        </div>
+        {/* 记录内容 */}
+        <div className={styles.searchRecordContent}>
+          <div className={styles.searchRecordItem}>
+            <a className={styles.searchRecordTitle} href='/'>人猿泰山锻炼法</a>
+            <a className={styles.searchRecordTitle} href='/'>人猿泰山锻炼法</a>
+            <a className={styles.searchRecordTitle} href='/'>人猿泰山锻炼法</a>
+            <a className={styles.searchRecordTitle} href='/'>人猿锻炼法</a>
+            <a className={styles.searchRecordTitle} href='/'>人猿泰山法</a>
+            <a className={styles.searchRecordTitle} href='/'>人猿锻炼法</a>
+            <a className={styles.searchRecordTitle} href='/'>泰山法</a>
+          </div>
+        </div>
+        {/* 热门推荐 */}
         <HotListItems hotList={hotList} />
+        {/* 搜索建议搜索当中自动弹出 */}
         <div className={styles.list} style={suggestListStyle}>
           {
             suggestList.map(item => (
@@ -70,6 +84,16 @@ const Search = () => {
               </div>
             ))
           }
+        </div>
+        {/* 热门建议轮播图 */}
+        <div className={styles.swiper}>
+          <Swiper pagination={false} autoplay={3000}>
+            {images.map((image) => (
+              <Swiper.Item key={image}>
+                <Image src={image} />
+              </Swiper.Item>
+            ))}
+          </Swiper>
         </div>
       </div>
     </div>

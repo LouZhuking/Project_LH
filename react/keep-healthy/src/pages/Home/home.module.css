@@ -65,7 +65,7 @@
 
 .searchIcon {
   color: #999;
-  font-size: 16px;
+  font-size: 30px;
 }
 
 .searchInput {
@@ -73,7 +73,7 @@
   border: none;
   background: transparent;
   outline: none;
-  font-size: 25px;
+  font-size: 30px;
   color: #333;
 }
 
@@ -88,14 +88,23 @@
 }
 
 .headerIcon {
-  font-size: 20px;
+  font-size: 40px;
   color: #333;
   cursor: pointer;
 }
 
+.headerIcon_setting {
+  font-size: 45px;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .messageContainer {
   position: relative;
-}
+} 
 
 .badge {
   position: absolute;
@@ -103,10 +112,10 @@
   right: -8px;
   background: #ff4757;
   color: white;
-  font-size: 10px;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 8px;
+  font-size: 25px;
+  min-width: 25px;
+  height: 25px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;

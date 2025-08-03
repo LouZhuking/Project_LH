@@ -10,12 +10,14 @@ import {
 } from '@/utils'
 import {
   ArrowLeft,
-  Close
+  Close,
+  Search
 } from '@react-vant/icons'
 import {
   useNavigate
 } from 'react-router-dom'
 import styles from './search.module.css'
+import Icon from '@/Icon'
 
 const SearchBox = (props) => {
   // api 
@@ -67,12 +69,15 @@ const SearchBox = (props) => {
       <input
         type="text"
         className={styles.ipt}
-        placeholder='搜索健身相关的'
+        placeholder='人猿泰山锻炼法'
         ref={queryRef}
         onChange={handleChange}
       />
       {/* 移动端用户体验 */}
-      <Close onClick={clearQuery} style={displayStyle} />
+      <Search className={styles.searchIcon} />
+      <div className={styles.close} onClick={clearQuery} style={displayStyle} >
+        <Icon type="icon-quxiao" size={18} />
+      </div>
     </div>
   )
 }
