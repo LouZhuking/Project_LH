@@ -11,6 +11,7 @@ import {
 import {
   Search
 } from '@react-vant/icons'
+import DynamicTrainingLoader from '@/components/DynamicTrainingLoader'
 
 const tabs = [
   { name: '胸' },
@@ -33,7 +34,17 @@ const tabs = [
 
 const Movement = () => {
   const [active, setActive] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
 
+  // 处理加载开始
+  const handleLoadStart = (muscleName) => {
+    setIsLoading(true)
+  }
+
+  // 处理加载完成
+  const handleLoadComplete = (muscleName) => {
+    setIsLoading(false)
+  }
 
   return (
     <div className={styles.movementContainer}>
@@ -53,26 +64,37 @@ const Movement = () => {
           </div>
         </div>
       </div>
-      {/* Sidebar 侧边导航栏 */}
-      <Sidebar
-        value={active}
-        onChange={(key) => {
-          setActive(key);
-          Toast.info(`内容区 ${key + 1}`);
-          // 路由跳转页面 如何搞？？？
-        }}
-        className={styles.sidebar}
-      >
-        {tabs.map((key, index) => (
-          <Sidebar.Item
-            key={index}
-            contentStyle={{ backgroundColor: '#fff', padding: '18px 10px' }}
-            title={key.name}
-          >
-            {key.name}
-          </Sidebar.Item>
-        ))}
-      </Sidebar>
+      {/* 主要内容区域 */}
+      <div className={styles.mainContent}>
+        {/* Sidebar 侧边导航栏 */}
+        <Sidebar
+          value={active}
+          onChange={(key) => {
+            setActive(key);
+            Toast.info(`正在加载 ${tabs[key].name} 训练内容`);
+            // 使用动态组件加载，无需路由跳转
+          }}
+          className={styles.sidebar}
+        >
+          {tabs.map((tab, index) => (
+            <Sidebar.Item
+              key={index}
+              title={tab.name}
+            >
+              {/* 侧边栏内容为空，内容在右侧动态显示 */}
+            </Sidebar.Item>
+          ))}
+        </Sidebar>
+
+        {/* 右侧动态内容区域 */}
+        <div className={styles.contentArea}>
+          <DynamicTrainingLoader
+            muscleName={tabs[active]?.name || '胸'}
+            onLoadStart={handleLoadStart}
+            onLoadComplete={handleLoadComplete}
+          />
+        </div>
+      </div>
 
     </div>
   )
