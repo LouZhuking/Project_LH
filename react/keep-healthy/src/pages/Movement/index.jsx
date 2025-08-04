@@ -5,8 +5,7 @@ import {
   useState
 } from 'react'
 import {
-  Sidebar,
-  Toast
+  Sidebar
 } from 'react-vant'
 import {
   Search
@@ -71,7 +70,7 @@ const Movement = () => {
           value={active}
           onChange={(key) => {
             setActive(key);
-            Toast.info(`正在加载 ${tabs[key].name} 训练内容`);
+
             // 使用动态组件加载，无需路由跳转
           }}
           className={styles.sidebar}

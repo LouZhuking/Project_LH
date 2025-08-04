@@ -66,17 +66,82 @@
   overflow: hidden;
 }
 
+/* 自定义Sidebar样式，使文字居中 */
+.sidebar :global(.rv-sidebar-item) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 120px;
+  padding: 0;
+}
+
+.sidebar :global(.rv-sidebar-item__title) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.sidebar :global(.rv-sidebar-item--selected .rv-sidebar-item__title) {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.sidebar :global(.rv-sidebar-item__content) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 .contentArea {
   flex: 1;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: #f8f9fa;
   border-radius: 0 16px 0 0;
+  /* 优化滚动体验 */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 自定义滚动条样式 */
+.contentArea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contentArea::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.contentArea::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.3);
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.contentArea::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.6);
+}
+
+/* Firefox滚动条样式 */
+.contentArea {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(102, 126, 234, 0.3) transparent;
 }
 
 :root{
   --rv-sidebar-selected-border-color: #667eea;
   --rv-sidebar-selected-border-height: 60px;
   --rv-sidebar-width: 120px;
-  --rv-sidebar-font-size: 16px;
-  --rv-sidebar-padding: 20px 0;
+  --rv-sidebar-font-size: 26px;
+  --rv-sidebar-padding: 0;
 }

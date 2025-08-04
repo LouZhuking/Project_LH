@@ -29,7 +29,17 @@ const ChestTraining = () => {
       reps: '12-15次',
       difficulty: '中级',
       tips: '动作缓慢，感受肌肉收缩'
+    },
+    {
+      id: 4,
+      name: '哑铃飞鸟',
+      description: '锻炼胸大肌外侧，增加胸部宽度',
+      sets: '3组',
+      reps: '10-15次',
+      difficulty: '中级',
+      tips: '保持肘部微屈，避免锁肩'
     }
+
   ]
 
   return (

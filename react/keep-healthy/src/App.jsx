@@ -19,7 +19,7 @@ const Sport = lazy(() => import('@/pages/sport'))
 const Movement = lazy(() => import('@/pages/movement'))
 const User = lazy(() => import('@/pages/user'))
 const Search = lazy(() => import('@/pages/search'))
-const Detail = lazy(() => import('@/pages/detail'))
+const DouBao = lazy(() => import('@/pages/doubao'))
 
 function App() {
 
@@ -41,8 +41,7 @@ function App() {
           {/* 空的Layout */}
           <Route element={<BlankLayout />}>
             <Route path='/search' element={<Search />} />
-            {/* 点击跳转买东西详情页面，轮播图 */}
-            <Route path='/detail:id' element={<Detail />} />
+            <Route path='/doubao' element={<DouBao />} />
           </Route>
         </Routes>
       </Suspense>
