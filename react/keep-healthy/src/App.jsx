@@ -20,6 +20,7 @@ const Movement = lazy(() => import('@/pages/movement'))
 const User = lazy(() => import('@/pages/user'))
 const Search = lazy(() => import('@/pages/search'))
 const DouBao = lazy(() => import('@/pages/doubao'))
+const Coze = lazy(() => import('@/pages/coze'))
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
           <Route element={<BlankLayout />}>
             <Route path='/search' element={<Search />} />
             <Route path='/doubao' element={<DouBao />} />
+            <Route path='/coze' element={<Coze />} />
           </Route>
         </Routes>
       </Suspense>

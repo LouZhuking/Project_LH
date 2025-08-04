@@ -13,9 +13,6 @@ import {
 } from 'react-vant'
 import Icon from '@/Icon'
 import {
-  ServiceO,
-  StarO,
-  FriendsO,
   SettingO
 } from '@react-vant/icons'
 import { useNavigate } from 'react-router-dom'
@@ -66,6 +63,16 @@ const User = () => {
     avatar: 'https://pic1.zhimg.com/v2-1e3c09ff6d13c233c11c60c17212e4b7_r.jpg?source=1def8aca'
   })
 
+
+  // 饮食记录图标数据
+  const mealIcons = [
+    { type: "icon-zaocan", title: "早餐" },
+    { type: "icon-wucan", title: "午餐" },
+    { type: "icon-wancan", title: "晚餐" },
+    { type: "icon-a-50-62_fuzhi-04", title: "加餐" },
+    { type: "icon-iconx", title: "饮水" },
+    { type: "icon-weight0", title: "记体重" }
+  ]
 
   useTitle('用户中心')
   return (
@@ -131,30 +138,12 @@ const User = () => {
         {/* 饮食记录区底部图标 */}
         {/* 点击图标跳转Coze智能拍照识别卡路里页面 */}
         <div className={styles.userRecordIcon}>
-          <div className={styles.iconText}>
-            <Icon type="icon-zaocan" size={20} color="#020202" />
-            <span className={styles.iconTextTitle}>早餐</span>
-          </div>
-          <div className={styles.iconText}>
-            <Icon type="icon-wucan" size={20} color="#020202" />
-            <span className={styles.iconTextTitle}>午餐</span>
-          </div>
-          <div className={styles.iconText}>
-            <Icon type="icon-wancan" size={20} color="#020202" />
-            <span className={styles.iconTextTitle}>晚餐</span>
-          </div>
-          <div className={styles.iconText}>
-            <Icon type="icon-a-50-62_fuzhi-04" size={20} color="#020202" />
-            <span className={styles.iconTextTitle}>加餐</span>
-          </div>
-          <div className={styles.iconText}>
-            <Icon type="icon-iconx" size={20} color="#020202" />
-            <span className={styles.iconTextTitle}>饮水</span>
-          </div>
-          <div className={styles.iconText}>
-            <Icon type="icon-weight0" size={20} color="#020202" />
-            <span className={styles.iconTextTitle}>记体重</span>
-          </div>
+          {mealIcons.map((item, index) => (
+            <div key={index} className={styles.iconText} onClick={() => navigate('/coze')}>
+              <Icon type={item.type} size={20} color="#020202" />
+              <span className={styles.iconTextTitle}>{item.title}</span>
+            </div>
+          ))}
         </div>
       </div>
       {/* 任务栏框 */}
