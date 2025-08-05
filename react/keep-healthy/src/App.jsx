@@ -12,6 +12,7 @@ import {
 import Loading from '@/components/loading'
 import MainLayout from '@/components/MainLayout'
 import BlankLayout from '@/components/BlankLayout'
+import RequireAuth from '@/components/RequireAuth'
 
 const Home = lazy(() => import('@/pages/home'))
 const Chat = lazy(() => import('@/pages/chat'))
