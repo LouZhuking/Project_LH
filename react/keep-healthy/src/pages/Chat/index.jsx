@@ -163,8 +163,8 @@ const Chat = () => {
             }>
               {
                 msg.role === 'assistant' ?
-                  <ChatO /> :
-                  <UserO />
+                  <Icon type="icon-cangao" size={24} /> :
+                  <Icon type="icon-hashiqi" size={24} />
               }
               <ReactMarkdown>{msg.content}</ReactMarkdown>
             </div>

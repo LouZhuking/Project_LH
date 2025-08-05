@@ -168,17 +168,17 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .messageLeft {
-  background-color: #fff;
+  background-color: #e0d5d5;
 }
 .messageRight {
-  background-color: #4fc08d;
-  color: white;
+  background-color: #dad7e0;
+  color: rgb(20, 20, 20);
   margin-left: 30%;
 }
 
 /* 底部快捷操作栏 */
 .quickActions {
-  background-color: #e1f5fe; 
+  /* background-color: #e1f5fe;  */
   display: flex;
   justify-content: space-around;
   padding: 12px 16px;
@@ -214,11 +214,11 @@
 }
 
 .actionIcon {
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .actionText {
-  font-size: 10px;
+  font-size: 20px;
   color: #666;
   text-align: center;
 }
@@ -276,41 +276,4 @@
 
 .cameraBtn:hover {
   background-color: #bbdefb;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .mainContent {
-    padding: 16px 12px;
-  }
-
-  .functionsGrid {
-    gap: 8px;
-    padding: 12px;
-  }
-
-  .functionCard {
-    padding: 16px;
-  }
-
-  .greetingCard {
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-
-  .greetingText {
-    font-size: 16px;
-  }
-
-  .inputArea {
-    padding: 12px;
-  }
-
-  .quickActions {
-    padding: 8px 12px;
-  }
-
-  .actionText {
-    font-size: 9px;
-  }
 }
