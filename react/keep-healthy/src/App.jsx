@@ -21,7 +21,7 @@ const User = lazy(() => import('@/pages/user'))
 const Search = lazy(() => import('@/pages/search'))
 const DouBao = lazy(() => import('@/pages/doubao'))
 const Coze = lazy(() => import('@/pages/coze'))
-
+const Login = lazy(() => import('@/pages/login'))
 function App() {
 
   return (
@@ -32,7 +32,11 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path='/' element={<Navigate to='/home' />} />
             <Route path='/home' element={<Home />} />
-            <Route path='/chat' element={<Chat />} />
+            <Route path='/chat' element={
+              <RequireAuth>
+                <Chat />
+              </RequireAuth>
+            } />
             <Route path='/sport' element={<Sport />} />
             <Route path='/movement' element={<Movement />} />
             <Route path='/user' element={<User />} />
@@ -44,6 +48,7 @@ function App() {
             <Route path='/search' element={<Search />} />
             <Route path='/doubao' element={<DouBao />} />
             <Route path='/coze' element={<Coze />} />
+            <Route path='/login' element={<Login />} />
           </Route>
         </Routes>
       </Suspense>

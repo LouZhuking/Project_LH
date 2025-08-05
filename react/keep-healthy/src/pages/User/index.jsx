@@ -9,7 +9,8 @@ import {
   CellGroup,
   ActionSheet,
   Popup,
-  Loading
+  Loading,
+  Button
 } from 'react-vant'
 import Icon from '@/Icon'
 import {
@@ -98,6 +99,11 @@ const User = () => {
           <div className={styles.slogan}>{userInfo.slogan}</div>
         </div>
         {/* 右侧修改信息 */}
+        <div className={styles.userLogin}>
+          <Button color='linear-gradient(to right, #ff6034, #ee0a24)' type="primary" size="small" onClick={() => navigate('/login')}>
+            <span className={styles.userLoginText}>退出</span>
+          </Button>
+        </div>
 
       </div>
       {/* 饮食记录区Coze智能拍照识别卡路里 */}

@@ -28,16 +28,16 @@ const Chat = () => {
   // 静态界面
   const [messages, setMessages] = useState([
     // 会出现情况出现将下标导航挤掉
-    {
-      id: 2,
-      content: "hello~~",
-      role: "user",
-    },
-    {
-      id: 1,
-      content: "hello, I am your assistant~~",
-      role: "assistant",
-    },
+    // {
+    //   id: 2,
+    //   content: "hello~~",
+    //   role: "user",
+    // },
+    // {
+    //   id: 1,
+    //   content: "hello, I am your assistant~~",
+    //   role: "assistant",
+    // },
 
   ])
 
@@ -112,14 +112,6 @@ const Chat = () => {
 
       {/* 主要内容区域 */}
       <div className={`${styles.mainContent} ${!showMainContent ? styles.hidden : ''}`}>
-        {/* AI问候卡片 */}
-        <div className={styles.greetingCard}>
-          <div className={styles.quoteIcon}>💬</div>
-          <div className={styles.greetingText}>
-            Hi，我是 Keep AI 教练卡卡，请问有什么可以帮到你？
-          </div>
-        </div>
-
         {/* 功能卡片网格 */}
         <div className={styles.functionsGrid}>
           {/* 第一行 */}
@@ -150,6 +142,14 @@ const Chat = () => {
 
 
         </div>
+        {/* AI问候卡片 */}
+        <div className={styles.greetingCard}>
+          <div className={styles.quoteIcon}>💬</div>
+          <div className={styles.greetingText}>
+            Hi，我是 Keep AI 教练卡卡，请问有什么可以帮到你？
+          </div>
+        </div>
+
       </div>
 
       {/* 对话区域 */}
