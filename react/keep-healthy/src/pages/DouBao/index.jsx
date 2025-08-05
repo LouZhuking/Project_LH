@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styles from './doubao.module.css'
 import { useNavigate } from 'react-router-dom'
+import { generateAvatar } from '@/llm'
 
 const DouBao = () => {
   const navigate = useNavigate()
@@ -26,10 +27,18 @@ const DouBao = () => {
     }
   }
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (inputText.trim()) {
-      console.log('开始生成图片:', inputText)
+      // console.log('开始生成图片:', inputText)
       // 这里添加生成图片的逻辑
+      const response = await generateAvatar(inputText)
+      if (response.success) {
+        setSelectedImage(response.url)
+        // console.log(response.url);
+
+      } else {
+        console.error('图片生成失败:', response.error)
+      }
     }
   }
 
