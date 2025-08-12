@@ -11,10 +11,6 @@ import {
 import {
   Loading,
 } from 'react-vant'
-import {
-  ChatO,
-  UserO
-} from '@react-vant/icons'
 import ReactMarkdown from 'react-markdown'
 
 const Chat = () => {

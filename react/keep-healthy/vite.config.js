@@ -19,6 +19,7 @@ export default defineConfig({
   },
   // 添加代理配置解决CORS问题
   server: {
+    host: '0.0.0.0',
     proxy: {
       // ARK API 代理配置
       '/api/ark-proxy': {

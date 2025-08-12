@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* 启用硬件加速 */
+  transform: translateZ(0);
+  /* 优化滚动性能 */
+  will-change: scroll-position;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.column {
+  position: absolute;
+  width: 48%;
+  top: 16px;
+  bottom: 16px;
+}
+
+.column:first-child {
+  left: 1%;
+}
+
+.column:last-child {
+  right: 1%;
+}
+
+.loader {
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+  font-size: 14px;
+}

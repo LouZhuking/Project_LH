@@ -1,67 +1,62 @@
 import styles from './card.module.css'
 import {
-  useRef,
-  useEffect,
-  memo
+  memo,
+  useMemo
 } from 'react'
+import useIntersectionObserver from '@/hooks/useIntersectionObserver'
 
 const ImageCard = (props) => {
   // console.log(props);
   const { img } = props
   const { url, height } = img
   // console.log(img);
+  const detailFallback = [
+    { title: '标题示例', desc: '这是一段用于展示的描述文本，用以占位说明内容。' },
+    { title: '探索灵感', desc: '灵感来源于生活，通过记录捕捉每一个美好瞬间。' },
+    { title: '日常记录', desc: '轻松记录你的生活点滴，发现日常中的不平凡。' },
+  ]
 
-  const imgRef = useRef(null)
-  // console.log(url, height);
-  // 图片懒加载 代码的问题
-  useEffect(() => {
-    // 创建一个IntersectionObserver实例，用于监听元素是否进入视口
-    const observer = new IntersectionObserver(([entry], obs) => {
-      // 当目标元素进入视口时执行
-      if (entry.isIntersecting) {
-        // 获取目标图片元素
-        const img = entry.target;
-        // 创建一个新的img元素用于预加载图片
-        const oImg = document.createElement('img')
-        // 设置预加载图片的源地址，来自data-src属性
-        oImg.src = img.dataset.src
-        // 当图片加载完成后，平滑地替换图片
-        oImg.onload = () => {
-          // 防止布局闪烁，确保图片尺寸稳定
-          img.style.opacity = '0'
-          img.src = oImg.src
-          // 使用requestAnimationFrame确保DOM更新完成后再显示
-          requestAnimationFrame(() => {
-            img.style.transition = 'opacity 0.3s ease'
-            img.style.opacity = '1'
-          })
-        }
-        // 停止观察该元素
-        observer.unobserve(img)
-      }
-    }, {
-      // 添加rootMargin，提前加载图片
-      rootMargin: '50px'
-    })
-
-    // 如果imgRef已绑定到DOM元素，则开始观察该元素
-    if (imgRef.current) {
-      observer.observe(imgRef.current)
+  // 使用 useMemo 固定随机选择的标题和描述，避免重新渲染时刷新
+  const { title, desc } = useMemo(() => {
+    if (img.title && img.desc) {
+      return { title: img.title, desc: img.desc }
     }
-
-    // 清理函数
-    return () => {
-      if (imgRef.current) {
-        observer.unobserve(imgRef.current)
-      }
+    const randomItem = detailFallback[Math.floor(Math.random() * detailFallback.length)]
+    return {
+      title: img.title || randomItem.title,
+      desc: img.desc || randomItem.desc
     }
+  }, [img.title, img.desc])
 
-    // 依赖数组为空，表示只在组件挂载时执行一次
-  }, [])
+  const { ref } = useIntersectionObserver((entry, obs) => {
+    if (!entry || !entry.isIntersecting) return
+    const targetImg = entry.target
+    const preloader = document.createElement('img')
+    preloader.src = targetImg.dataset.src
+    preloader.onload = () => {
+      // 确保图片已经预加载完成，然后平滑切换
+      targetImg.src = preloader.src
+      // 使用 setTimeout 确保 src 更新后再显示
+      setTimeout(() => {
+        targetImg.style.opacity = '1'
+      }, 16) // 一帧的时间
+    }
+    preloader.onerror = () => {
+      // 图片加载失败时也显示，避免一直隐藏
+      targetImg.style.opacity = '1'
+    }
+    if (obs) obs.unobserve(targetImg)
+  }, { rootMargin: '50px', once: true })
 
   return (
-    <div style={{ height }} className={styles.card}>
-      <img ref={imgRef} data-src={url} className={styles.img} />
+    <div className={styles.card}>
+      <div className={styles.imageWrapper} style={{ height }}>
+        <img ref={ref} data-src={url} className={styles.img} />
+      </div>
+      <div className={styles.detail}>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.desc}>{desc}</div>
+      </div>
     </div>
   )
 }
