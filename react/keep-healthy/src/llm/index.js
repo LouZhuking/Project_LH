@@ -11,7 +11,8 @@ export const chat = async (
   messages,
   api_url = DEEPSEEK_CHAT_API_URL,
   api_key=import.meta.env.VITE_DEEPSEEK_API_KEY,
-  model='deepseek-chat'
+  model='deepseek-chat',
+  onChunk = null // 添加流式处理回调函数
 ) => {
   // 使用try catch 方式使代码更稳定
   try{
@@ -25,25 +26,64 @@ export const chat = async (
       body: JSON.stringify({
         model,
         messages,
-        stream: false,
+        stream: true, // 启用流式输出
       })
     })
-    // 2. 接收数据
-    // 等待并解析API返回的响应数据为JSON格式
-    const data = await response.json();
-    // 3. 返回标准化的成功响应对象
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    if (!response.body) {
+      throw new Error('Response body is null');
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let fullContent = '';
+
+    // 流式处理逻辑
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      // 处理每个chunk
+      const lines = chunk.split('\n');
+      for (const line of lines) {
+          if (line.trim() === '') continue;
+          if (line.startsWith('data: ')) {
+              const data = line.substring(6);
+              if (data === '[DONE]') break;
+              try {
+                  const json = JSON.parse(data);
+                  const content = json.choices[0]?.delta?.content || '';
+                  if (content && onChunk) {
+                      onChunk(content); // 调用回调函数传递chunk
+                  }
+                  fullContent += content;
+              } catch (e) {
+                  console.error('Error parsing chunk:', e);
+              }
+          }
+      }
+    }
+
+    // 3. 返回标准化的成功响应对象（使用累积的完整内容）
     return {
       code: 0, 
       data:{
         role: 'assistant',  // 角色标识 表示是ai助手的回复
-        content: data.choices[0].message.content // 提取API返回的AI回复内容
+        content: fullContent // 使用流式累积的完整内容
       }
     }
 
   } catch(err){
+      console.error('Chat API Error:', err);
       return{
-        code: 0,
-        msg: '出错了...'
+        code: 1,
+        msg: '出错了...',
+        error: err.message
       }
   }
 }

@@ -20,6 +20,8 @@ const Chat = () => {
   const [isSending, setIsSending] = useState(false)
   const [showQuickActions, setShowQuickActions] = useState(true) // 控制快捷操作栏显示
   const [showMainContent, setShowMainContent] = useState(true) // 控制主内容区域显示
+  const [streamingContent, setStreamingContent] = useState("") // 流式输出内容
+  const [isStreaming, setIsStreaming] = useState(false) // 是否正在流式输出
   // 数据驱动界面
   // 静态界面
   const [messages, setMessages] = useState([
@@ -42,32 +44,90 @@ const Chat = () => {
     if (text.trim() === "") return
     // 1. 不能让用户重复点击按钮
     setIsSending(true)
+    const userText = text
     setText("")
     // 隐藏快捷操作栏（用户首次提交后）
     setShowQuickActions(false)
     setShowMainContent(false)
+
     // 2. 用户发送的可以立马上去
-    // 会产生闭包陷阱
     setMessages((prev) => {
       return [
         ...prev,
         {
           role: 'user',
-          content: text,
+          content: userText,
+          id: Date.now() - 1 // 确保用户消息ID比助手消息小
         }
       ]
     })
-    const newMessage = await chat([{
-      role: 'user',
-      content: text
-    }])
-    setMessages((prev) => {
-      return [
-        ...prev,
-        newMessage.data
-      ]
-    })
-    setIsSending(false)
+
+    // 3. 开始流式输出
+    setIsStreaming(true)
+    setStreamingContent("")
+
+    try {
+      const newMessage = await chat([{
+        role: 'user',
+        content: userText
+      }],
+        undefined, // api_url
+        undefined, // api_key
+        undefined, // model
+        // 流式回调函数
+        (chunk) => {
+          setStreamingContent(prev => prev + chunk)
+        })
+
+      // 流式输出完成，将完整消息添加到历史记录
+      if (newMessage.code === 0) {
+        const assistantMessage = {
+          role: 'assistant',
+          content: newMessage.data.content,
+          id: Date.now()
+        }
+
+        setMessages((prev) => {
+          return [
+            ...prev,
+            assistantMessage
+          ]
+        })
+      } else {
+        // 处理错误情况
+        const errorMessage = {
+          role: 'assistant',
+          content: '抱歉，服务暂时不可用，请稍后重试。',
+          id: Date.now()
+        }
+
+        setMessages((prev) => {
+          return [
+            ...prev,
+            errorMessage
+          ]
+        })
+      }
+    } catch (error) {
+      console.error('Chat error:', error)
+      const errorMessage = {
+        role: 'assistant',
+        content: '抱歉，发生了未知错误，请稍后重试。',
+        id: Date.now()
+      }
+
+      setMessages((prev) => {
+        return [
+          ...prev,
+          errorMessage
+        ]
+      })
+    } finally {
+      // 清理流式状态
+      setIsStreaming(false)
+      setStreamingContent("")
+      setIsSending(false)
+    }
   }
 
   useEffect(() => {
@@ -151,21 +211,40 @@ const Chat = () => {
       {/* 对话区域 */}
       <div className={styles.ChatArea}>
         {
-          messages.map((msg, index) => (
-            <div key={index} className={
-              msg.role === 'user' ?
-                styles.messageRight :
-                styles.messageLeft
-            }>
-              {
-                msg.role === 'assistant' ?
-                  <Icon type="icon-cangao" size={24} /> :
-                  <Icon type="icon-hashiqi" size={24} />
-              }
-              <ReactMarkdown>{msg.content}</ReactMarkdown>
-            </div>
-          ))
+          messages.map((msg, index) => {
+            // 安全检查：确保 msg 存在且有 role 属性
+            if (!msg || !msg.role) {
+              console.warn('消息格式错误:', msg)
+              return null
+            }
+
+            return (
+              <div key={msg.id || index} className={
+                msg.role === 'user' ?
+                  styles.messageRight :
+                  styles.messageLeft
+              }>
+                {
+                  msg.role === 'assistant' ?
+                    <Icon type="icon-cangao" size={24} /> :
+                    <Icon type="icon-hashiqi" size={24} />
+                }
+                <ReactMarkdown>{msg.content || ''}</ReactMarkdown>
+              </div>
+            )
+          })
         }
+
+        {/* 流式输出显示区域 */}
+        {isStreaming && streamingContent && (
+          <div className={`${styles.messageLeft} ${styles.streaming}`}>
+            <Icon type="icon-cangao" size={24} />
+            <div className={styles.streamingContent}>
+              <ReactMarkdown>{streamingContent}</ReactMarkdown>
+              <span className={styles.cursor}>|</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 底部快捷操作栏 */}
