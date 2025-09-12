@@ -102,14 +102,6 @@ export const generateAvatar = async (
       throw new Error('文本描述不能为空');
     }
 
-    // 网络连通性测试
-    try {
-      const testResponse = await fetch(ARK_API_URL, {
-        method: 'OPTIONS',
-        mode: 'cors'
-      });
-    } catch (optionsError) {
-    }
     
     const requestBody = {
       model: 'doubao-seedream-3-0-t2i-250415',

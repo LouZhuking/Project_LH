@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState, useEffect, useMemo, useCallback } from 'react'
+import React, { Suspense, lazy, useState, useEffect } from 'react'
 import styles from './DynamicLoader.module.css'
 
 // 动态导入训练组件 - 实现代码分割
@@ -8,7 +8,7 @@ const GlutesTraining = lazy(() => import('@/components/TrainingComponents/Glutes
 const LegsTraining = lazy(() => import('@/components/TrainingComponents/LegsTraining'))
 const DefaultTraining = lazy(() => import('@/components/TrainingComponents/DefaultTraining'))
 
-// 组件映射表 - 移到组件外部避免每次渲染重新创建
+// 组件映射表
 const componentMap = {
   '胸': ChestTraining,
   '背': BackTraining,
@@ -27,8 +27,8 @@ const componentMap = {
   '肱六头': DefaultTraining,
 }
 
-// 加载状态组件 - 使用React.memo避免不必要的重渲染
-const LoadingComponent = React.memo(({ muscleName }) => (
+// 加载状态组件
+const LoadingComponent = ({ muscleName }) => (
   <div className={styles.loadingContainer}>
     <div className={styles.loadingSpinner}>
       <div className={styles.spinner}></div>
@@ -36,7 +36,7 @@ const LoadingComponent = React.memo(({ muscleName }) => (
       <p>精彩内容即将呈现 🎯</p>
     </div>
   </div>
-))
+)
 
 // 错误边界组件
 class ErrorBoundary extends React.Component {
@@ -80,30 +80,21 @@ class ErrorBoundary extends React.Component {
 const DynamicTrainingLoader = ({ muscleName, onLoadStart, onLoadComplete }) => {
   const [isLoading, setIsLoading] = useState(true)
 
-  // 使用useCallback包装回调函数，避免useEffect不必要的重新执行
-  const handleLoadStart = useCallback((muscle) => {
-    onLoadStart && onLoadStart(muscle)
-  }, [onLoadStart])
-
-  const handleLoadComplete = useCallback((muscle) => {
-    onLoadComplete && onLoadComplete(muscle)
-  }, [onLoadComplete])
-
   useEffect(() => {
     // 通知父组件开始加载
-    handleLoadStart(muscleName)
+    onLoadStart && onLoadStart(muscleName)
 
     // 模拟加载时间（实际项目中这由懒加载自动处理）
     const timer = setTimeout(() => {
       setIsLoading(false)
-      handleLoadComplete(muscleName)
+      onLoadComplete && onLoadComplete(muscleName)
     }, 300)
 
     return () => clearTimeout(timer)
-  }, [muscleName, handleLoadStart, handleLoadComplete])
+  }, [muscleName, onLoadStart, onLoadComplete])
 
-  // 使用useMemo缓存组件实例，避免每次渲染重新创建
-  const trainingComponent = useMemo(() => {
+  // 获取对应的组件
+  const getTrainingComponent = () => {
     const Component = componentMap[muscleName] || DefaultTraining
 
     // 如果是默认组件，传入肌肉名称
@@ -112,7 +103,7 @@ const DynamicTrainingLoader = ({ muscleName, onLoadStart, onLoadComplete }) => {
     }
 
     return <Component />
-  }, [muscleName])
+  }
 
   return (
     <div className={styles.dynamicContainer}>
@@ -121,7 +112,7 @@ const DynamicTrainingLoader = ({ muscleName, onLoadStart, onLoadComplete }) => {
           <div
             className={`${styles.contentWrapper} ${!isLoading ? styles.loaded : ''}`}
           >
-            {trainingComponent}
+            {getTrainingComponent()}
           </div>
         </Suspense>
       </ErrorBoundary>
