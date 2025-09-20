@@ -1,0 +1,67 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cloud Illustration -->
+  <defs>
+    <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#f0f9ff;stop-opacity:0.7"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background clouds -->
+  <ellipse cx="100" cy="80" rx="60" ry="35" fill="url(#cloudGradient)" opacity="0.6"/>
+  <ellipse cx="300" cy="60" rx="45" ry="25" fill="url(#cloudGradient)" opacity="0.4"/>
+  
+  <!-- Main cloud server -->
+  <g filter="url(#glow)">
+    <ellipse cx="200" cy="120" rx="80" ry="45" fill="url(#cloudGradient)"/>
+    <ellipse cx="180" cy="105" rx="45" ry="28" fill="url(#cloudGradient)"/>
+    <ellipse cx="220" cy="105" rx="40" ry="25" fill="url(#cloudGradient)"/>
+    <ellipse cx="200" cy="90" rx="35" ry="22" fill="url(#cloudGradient)"/>
+  </g>
+  
+  <!-- Data streams -->
+  <path d="M150 160 Q200 140 250 160" stroke="rgba(255,255,255,0.8)" stroke-width="2" fill="none" stroke-dasharray="5,5">
+    <animate attributeName="stroke-dashoffset" values="0;10" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <path d="M120 180 Q200 160 280 180" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none" stroke-dasharray="3,3">
+    <animate attributeName="stroke-dashoffset" values="0;6" dur="1.5s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Devices connected to cloud -->
+  <!-- Laptop -->
+  <rect x="80" y="200" width="40" height="25" rx="3" fill="rgba(255,255,255,0.9)"/>
+  <rect x="85" y="205" width="30" height="18" fill="rgba(102,126,234,0.3)"/>
+  <rect x="75" y="225" width="50" height="8" rx="4" fill="rgba(255,255,255,0.7)"/>
+  
+  <!-- Mobile -->
+  <rect x="320" y="190" width="20" height="35" rx="5" fill="rgba(255,255,255,0.9)"/>
+  <rect x="323" y="195" width="14" height="20" fill="rgba(102,126,234,0.3)"/>
+  <circle cx="330" cy="220" r="2" fill="rgba(255,255,255,0.8)"/>
+  
+  <!-- Tablet -->
+  <rect x="50" y="240" width="35" height="25" rx="3" fill="rgba(255,255,255,0.9)"/>
+  <rect x="55" y="245" width="25" height="15" fill="rgba(102,126,234,0.3)"/>
+  
+  <!-- Connection lines -->
+  <line x1="100" y1="200" x2="180" y2="150" stroke="rgba(255,255,255,0.5)" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="330" y1="190" x2="220" y2="150" stroke="rgba(255,255,255,0.5)" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="67" y1="240" x2="180" y2="160" stroke="rgba(255,255,255,0.5)" stroke-width="1" stroke-dasharray="2,2"/>
+  
+  <!-- Floating data particles -->
+  <circle cx="160" cy="100" r="2" fill="rgba(255,255,255,0.8)">
+    <animate attributeName="cy" values="100;90;100" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="240" cy="110" r="1.5" fill="rgba(255,255,255,0.6)">
+    <animate attributeName="cy" values="110;120;110" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="190" cy="140" r="1" fill="rgba(255,255,255,0.7)">
+    <animate attributeName="cy" values="140;130;140" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

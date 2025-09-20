@@ -1,6 +1,17 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:5173/api'
+// 动态获取baseURL，支持手机访问
+const getBaseURL = () => {
+  // 开发环境下，如果是localhost，使用当前访问的host
+  if (import.meta.env.DEV) {
+    const currentHost = window.location.host;
+    return `${window.location.protocol}//${currentHost}/api`;
+  }
+  // 生产环境
+  return '/api';
+};
+
+axios.defaults.baseURL = getBaseURL();
 
 // 请求响应拦截器
 axios.interceptors.request.use((config) => {
