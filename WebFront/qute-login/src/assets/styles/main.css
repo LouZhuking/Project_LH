@@ -8,7 +8,7 @@
 html, body {
   height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8a65 0%, #ffb74d 50%, #ff7043 100%);
   overflow: hidden;
 }
 
@@ -26,8 +26,8 @@ html, body {
 
 .input-field:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #ff8a65;
+  box-shadow: 0 0 0 3px rgba(255, 138, 101, 0.2);
 }
 
 .input-field::placeholder {
@@ -50,24 +50,24 @@ html, body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff8a65 0%, #ff7043 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 138, 101, 0.4);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 138, 101, 0.5);
 }
 
 .btn-secondary {
   background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
+  color: #ff8a65;
+  border: 2px solid #ff8a65;
 }
 
 .btn-secondary:hover {
-  background: #667eea;
+  background: #ff8a65;
   color: white;
 }
 
